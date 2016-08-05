@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>guyirvine.com - Value Proposition Canvas</title>
+
+  <link rel="stylesheet" type="text/css" href="main.css" media="all" />
+
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/knockout/dist/knockout.js"></script>
+  <script src="bower_components/underscore/underscore-min.js"></script>
+  <script src="bower_components/moment/min/moment.min.js"></script>
+
+  <script src="js/viewmodel_vpc.js"></script>
+
+  <style>
+    div.control-panel {
+      display: none;
+    }
+  </style>
+  <style media="screen">
+    div.control-panel {
+      display: inherit;
+    }
+  </style>
+  <style media="print">
+    @page {
+      size: landscape;
+    }
+    html, body {
+      height: 99%;
+    }
+    .canvas {
+      min-height: 90%;
+    }
+    .vpc-element div.tips {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <table class='heading'>
+    <tr>
+      <td><h1>the value proposition canvas</h1></td>
+      <td class='input'>
+        <label>designed for:</label>
+        <span data-bind='text: designedfor'></span>
+      </td>
+      <td class='input'>
+        <label>designed by:</label>
+        <span data-bind='text: designedby'></span>
+      </td>
+      <td class='input'>
+        <label>on:</label>
+        <span data-bind='text: datecreated_fmt'></span>
+      </td>
+      <td class='input'>
+        <label>iteration:</label>
+        <span data-bind='text: iteration'></span>
+      </td>
+    </tr>
+  </table>
+  <style>
+    .column {
+      display: inline-block;
+      vertical-align: top;
+      width: 25%;
+      padding-top: 1%;
+      padding-left: 2%;
+    }
+    .images-column {
+      width: 45%;
+      display: inline-block;
+    }
+    img {
+      width: 100%;
+    }
+    .valuepropositions h2 {
+	    color: rgb(53,86,11);
+    }
+    .customersegments h2 {
+      color: rgb(160,39,46);
+    }
+
+    .valuepropositioncanvas h2 {
+      text-decoration: underline;
+      margin-bottom: 0.3em;
+    }
+
+    body, .vpc-element h2 {
+      font-family: Chalkboard;
+    }
+    .vpc-element {
+      display: block;
+      vertical-align: top;
+      padding-bottom: 5%;
+      cursor: pointer;
+    }
+
+    .vpc-element ul {
+      padding-left: 0;
+      margin-top: 0;
+    }
+
+    .vpc-element .tips {
+      font-size: 1.2em;
+      padding: 1em;
+    }
+
+    .images-column .value-proposition-canvas {
+      display: inherit;
+    }
+    .images-column .product-value {
+      display: none;
+    }
+
+    .show-product-value .value-proposition-canvas {
+      display: none;
+    }
+    .show-product-value .product-value {
+      display: inherit;
+    }
+  </style>
+
+  <div class='valuepropositioncanvas canvas'>
+    <div class='valuepropositions column'>
+      <div class='productsandservices valuepropositions vpc-element' data-bind="click: sectionclick('productsandservices')">
+        <h2>products and services</h2>
+        <ul data-bind='foreach: productsandservices'>
+          <li data-bind="text: $data"></li>
+        </ul>
+        <div class='tips'>
+          List all the products and services which your value proposition is built around. This includes for example the services that you offer or the help the customer receives either a functional, social, or emotional.
+        </div>
+      </div>
+      <div class='gaincreators valuepropositions vpc-element' data-bind="click: sectionclick('gaincreators')">
+        <h2>gain creators</h2>
+        <ul data-bind='foreach: gaincreators'>
+          <li data-bind="text: $data"></li>
+        </ul>
+        <div class='tips'>
+          Describe how your product creates customer gain, how it offers an added value to your customer.
+        </div>
+      </div>
+      <div class='painrelievers valuepropositions vpc-element' data-bind="click: sectionclick('painrelievers')">
+        <h2>pain relievers</h2>
+        <ul data-bind='foreach: painrelievers'>
+          <li data-bind="text: $data"></li>
+        </ul>
+        <div class='tips'>
+          Describe how your products addresses the challenges needs and the pains of the customer, how you eliminate negative emotions, undesired costs or avoidable situations.
+        </div>
+      </div>
+    </div>
+
+    <div class='images-column' data-bind='click: toggle_image'>
+      <img class='value-proposition-canvas' src="value-proposition-canvas.png">
+      <img class='product-value' src="product_value.jpg">
+    </div>
+
+    <div class='customersegments column'>
+      <div class='customerjobs vpc-element' data-bind="click: sectionclick('customerjobs')">
+        <h2>customer jobs</h2>
+        <ul data-bind='foreach: customerjobs'>
+          <li data-bind="text: $data"></li>
+        </ul>
+        <div class='tips'>
+          Gather all the customer needs, the problems that they are trying to solve and the tasks they are trying to perform or complete
+        </div>
+      </div>
+      <div class='gains vpc-element' data-bind="click: sectionclick('gains')">
+        <h2>gains</h2>
+        <ul data-bind='foreach: gains'>
+          <li data-bind="text: $data"></li>
+        </ul>
+        <div class='tips'>
+          Gather all the customers benefits and desires, and may span personal, functional, or economical etc. For example, this box could include positive emotions, functional requirements, or specific cost savings.
+        </div>
+      </div>
+      <div class='pains vpc-element' data-bind="click: sectionclick('pains')">
+        <h2>pains</h2>
+        <ul data-bind='foreach: pains'>
+          <li data-bind="text: $data"></li>
+        </ul>
+        <div class='tips'>
+          Gather all the negative emotions and undesired costs, situations and risk which the customer could experience before, during and after getting the job is done
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='control-panel'>
+    <div class='issues' data-bind='text: issues_fmt'></div>
+    <input type="file" id="file-input" data-bind="event: { change: read_file($element.files[0])}"/>
+    <button data-bind="click: load_file">Reload</button>
+    <a class='bmc' href='index.htm'>Business Model Canvas</a>
+  </div>
+
+</body>
+
+<script>
+var vm = new ViewModel();
+ko.applyBindings(vm);
+$('div.vpc-element').removeClass('showtips');
+</script>
+
+</html>

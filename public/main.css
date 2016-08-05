@@ -1,0 +1,125 @@
+html, body {
+  height: 100%;
+  background-color: #e9eaed;
+}
+
+.canvas, div.issues, table.details {
+  width: 98%;
+  left: 1%;
+  position: relative;
+}
+
+div.issues {
+  margin-top: 0.3em;
+  font-size: 0.8em;
+}
+
+.canvas {
+  background-color: white;
+  border-collapse: collapse;
+  font-size: 12px;
+  min-height: 80%;
+}
+
+.canvas .toprow {
+  width: 20%;
+}
+
+.canvas td {
+  border: 1px solid black;
+  vertical-align: top;
+  -webkit-font-smoothing: antialiased;
+  padding: 1em;
+}
+
+.canvas h2 {
+  font-family: Times New Roman;
+  font-size: 1.5em;
+  text-transform: capitalize;
+  font-style: italic;
+  margin-top: 0;
+  font-weight: bold;
+}
+
+.canvas li {
+  font-size: 1.4em;
+  padding-bottom: 0.4em;
+}
+
+.popup .tips {
+  background-color: #eee;
+  border: 1px solid #999;
+}
+
+.popup .tips ul {
+  padding-left: 0;
+}
+
+.popup .tips li {
+  font-size: 1em;
+  color: #999;
+  list-style: none;
+}
+
+
+.popup .tips .extra h2 {
+  text-transform: capitalize;
+  font-size: 1em;
+  margin-bottom: 0;
+  font-weight: bold;
+}
+.popup .tips .extra ul {
+  margin-top: 0;
+}
+
+.details {
+  margin-bottom: 1em;
+}
+
+.details h1 {
+  font-family: Times New Roman;
+  font-size: 2em;
+  text-transform: capitalize;
+  font-style: italic;
+  margin-top: 0;
+  margin-bottom: 0;
+  white-space: nowrap;
+  padding-right: 1em;
+}
+
+.details label {
+  text-transform: capitalize;
+}
+
+.details td.input {
+  background-color: white;
+  width: 20%;
+  position: relative;
+  padding-top: 0.5em;
+  border: 1px solid #E1E1E1;
+}
+
+.details td.input label {
+  font-size: 0.5em;
+  position: absolute;
+  left: 0.3em;
+  top: 0.3em;
+}
+
+.details td.input span {
+  font-size: 0.8em;
+}
+
+.hide {
+  display: none;
+}
+
+.control-panel {
+  position: relative;
+  width: 98%;
+  left: 1%;
+}
+.control-panel a {
+  position: absolute;
+  right: 0;
+}

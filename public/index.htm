@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>guyirvine.com</title>
+
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.min.css'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css'>
+  <link rel="stylesheet" type="text/css" href="main.css" media="all" />
+
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/underscore/underscore-min.js"></script>
+  <script src="bower_components/moment/min/moment.min.js"></script>
+
+  <style>
+    div.control-panel {
+      display: none;
+    }
+
+    .templates {
+      display: none;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .container1 {
+      height: 80%;
+    }
+
+    .board, .canvas {
+      height: 100%;
+    }
+
+    .popup {
+      position: absolute;
+      top: 5%;
+      left: 50%;
+      min-height: 400px;
+    }
+
+    .popup .popupcontent {
+      background-color: white;
+      box-shadow: 3px 2px 5px #888888;
+      cursor: pointer;
+      position: absolute;
+      width: 600px;
+      left: -300px;
+      border: 1px solid #999;
+    }
+
+    .popup .textinput {
+      width: 800px;
+      left: -400px;
+    }
+
+    .popup .popupcontent header {
+      background-color: #e9eaed;
+      color: black;
+      text-transform: capitalize;
+      margin: 0;
+      padding-top: 9px;
+      padding-bottom: 9px;
+      font-size: 1.5em;
+      text-align: center;
+      font-family: Times New Roman;
+      font-style: italic;
+    }
+
+    .popup .popupcontent footer {
+      background-color: #e9eaed;
+      color: white;
+      text-transform: capitalize;
+    }
+
+    .popup .popupcontent {
+      vertical-align: top;
+    }
+
+    .popup .tips .questions,
+    .popup .tips .extra {
+      margin: 1em;
+      font-size: 0.8em;
+    }
+
+    .popup .popupcontent textarea,
+    .popup .popupcontent label,
+    .popup .popupcontent input,
+    .popup .popupcontent .tips
+    {
+      margin-top: 0.1em;
+      margin-bottom: 1em;
+      width: 90%;
+      margin-left: 5%;
+    }
+
+    .popup .popupcontent label
+    {
+      margin-bottom: 0.1em;
+    }
+
+    .popup .textinput textarea,
+    .popup .textinput .tips
+    {
+      margin-top: 1em;
+      margin-bottom: 1em;
+      vertical-align: top;
+      display: inline-block;
+      width: 48%;
+      margin-left: 1%;
+      max-height: 600px;
+      overflow-y: scroll;
+    }
+
+
+    .popup footer {
+      text-align: right;
+    }
+
+    .popup footer a {
+      margin-right: 12px;
+      margin-top: 12px;
+      background-color: #CCC;
+      color: black;
+    }
+
+    .popup .textinput textarea {
+      min-height: 300px;
+    }
+
+
+  </style>
+  <style media="screen">
+    div.control-panel {
+      display: inherit;
+    }
+  </style>
+  <style media="print">
+    @page {
+      size: landscape;
+    }
+    html, body {
+      height: 99%;
+    }
+    .canvas {
+      min-height: 90%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class='container1'>
+  </div>
+
+
+  <div class='popup hide'>
+  </div>
+
+  <div class='templates'>
+    <div class='board'>
+      <table class='details'>
+        <tr>
+          <td><h1>the business model canvas</h1></td>
+          <td class='input'>
+            <label>designed for:</label>
+            <span class='designedfor'>Me</span>
+          </td>
+          <td class='input'>
+            <label>designed by:</label>
+            <span class='designedby'></span>
+          </td>
+          <td class='input'>
+            <label>on:</label>
+            <span class='datecreated'></span>
+          </td>
+          <td class='input'>
+            <label>iteration:</label>
+            <span class='iteration'></span>
+          </td>
+        </tr>
+      </table>
+
+      <table class='canvas'>
+        <tr>
+          <td class='toprow keypartners' rowspan='2'>
+            <h2>key partners</h2>
+            <ul>
+              <li>This is a line</li>
+              <li>And a second line</li>
+            </ul>
+          </td>
+          <td class='toprow keyactivities'>
+            <h2>key activities</h2>
+          </td>
+          <td class='toprow valuepropositions' rowspan='2'>
+            <h2>value propositions</h2>
+          </td>
+          <td class='toprow customerrelationships'>
+            <h2>customer relationships</h2>
+          </td>
+          <td class='toprow customersegments' rowspan='2'>
+            <h2>customer segments</h2>
+          </td>
+        </tr>
+        <tr>
+          <td class='keyresources'>
+            <h2>key resources</h2>
+          </td>
+          <td class='channels'>
+            <h2>channels</h2>
+          </td>
+        </tr>
+        <tr>
+          <td class='coststructure' colspan='3'>
+            <h2>cost structure</h2>
+          </td>
+          <td class='revenuestreams' colspan='2'>
+            <h2>revenue streams</h2>
+          </td>
+        </tr>
+      </table>
+
+      <div class='footer'>
+        <div class='control-panel'>
+          <div class='issues' data-bind='text: issues_fmt'></div>
+          <input type="file" id="file-input" data-bind="event: { change: read_file($element.files[0])}"/>
+          <button data-bind="click: load_file">Reload</button>
+          <a class='vpc' href='vpc.htm'>Value Proposition Canvas</a>
+        </div>
+      </div>
+    </div>
+
+    <div class='tips'>
+      <div class='keyactivities'>
+        <div class='questions'>
+          <ul>
+            <li>What Key Activities do our Value Propositions require?</li>
+            <li>Our Distribution Channels?</li>
+            <li>Customer Relationships?</li>
+            <li>Revenue Streams?</li>
+          </ul>
+        </div>
+        <div class='extra'>
+          <h2>Categories</h2>
+          <ul>
+            <li>Production</li>
+            <li>Problem Solving</li>
+            <li>Platform / Network</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class='valuepropositions'>
+        <div class='questions'>
+          <ul>
+            <li>What value do we deliver to the customer?</li>
+            <li>Which one of our customer's problems are we helping to solve?</li>
+            <li>What bundles of products and services are we offering to each Customer Segment?</li>
+            <li>Which customer needs are we satisfying?</li>
+          </ul>
+        </div>
+        <div class='extra'>
+          <h2>characteristics</h2>
+          <ul>
+            <li>Newness</li>
+            <li>Performance</li>
+            <li>Customisation</li>
+            <li>"Getting the Job Done"</li>
+            <li>Design</li>
+            <li>Brand / Status</li>
+            <li>Price</li>
+            <li>Cost Reduction</li>
+            <li>Risk Reduction</li>
+            <li>Accessibility</li>
+            <li>Convenience / Usability</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class='customerrelationships'>
+        <div class='questions'>
+          <ul>
+            <li>What type of relationship does each of our Customer Segments expect us to establish and maintain with them?</li>
+            <li>Which ones have we established?</li>
+            <li>How are they integrated with the rest of our business model?</li>
+            <li>How costly are they?</li>
+          </ul>
+        </div>
+        <div class='extra'>
+          <h2>examples</h2>
+          <ul>
+            <li>Personal assistance</li>
+            <li>Dedicated Personal Assistance</li>
+            <li>Self-Service</li>
+            <li>Automated Services</li>
+            <li>Communities</li>
+            <li>Co-creation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class='customersegments'>
+        <div class='questions'>
+          <ul>
+            <li>For whom are we creating value?</li>
+            <li>Who are our most important customers?</li>
+          </ul>
+        </div>
+        <div class='extra'>
+          <h2></h2>
+          <ul>
+            <li>Mass Market</li>
+            <li>Niche Market</li>
+            <li>Segmented</li>
+            <li>Diversified</li>
+            <li>Multi-sided Platform</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class='keyresources'>
+        <div class='questions'>
+          <ul>
+            <li>What Key Resources do our Value Propositions require?</li>
+            <li>Our Distribution Channels? Customer Relationships? Revenue Streams?</li>
+          </ul>
+        </div>
+        <div class='extra'>
+          <h2>types of resources</h2>
+          <ul>
+            <li>Physical</li>
+            <li>Intellectual ( brand patents, copyrights, data )</li>
+            <li>Human</li>
+            <li>Financial</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class='channels'>
+        <div class='questions'>
+          <ul>
+            <li>Through which Channels do our Customer Segments want to be reached?</li>
+            <li>How are we reaching them now?</li>
+            <li>How are our Channels integrated?</li>
+            <li>Which ones work best?</li>
+            <li>Which ones are most cost-efficient?</li>
+            <li>How are we integating them with customer routines?</li>
+          </ul>
+        </div>
+        <div class='extra'>
+          <h2>channel phases</h2>
+          <ul>
+            <li>1. Awareness - How do we raise awareness of our company's products and services?</li>
+            <li>2. Evaluation - How do we help customers evaluate our organisations Value Proposition?</li>
+            <li>3. Purchase - How do we allow customers to purchase specific products and services?</li>
+            <li>4. Delivery - How do we deliver a Value Proposition to customers?</li>
+            <li>5. After Sales - How do we provide post-purchase customer service?</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class='keypartners'>
+        <div class='questions'>
+          <ul>
+            <li>Who are our Key Partners?</li>
+            <li>Who are our Key Suppliers?</li>
+            <li>Which Key Resources are we aquiring from partners?</li>
+            <li>Which Key Activities fo partners Perform?</li>
+          </ul>
+        </div>
+        <div class='extra'>
+          <h2>motivations for partnerships</h2>
+          <ul>
+            <li>Optimisation and economy</li>
+            <li>Reduction of risk and uncertainty</li>
+            <li>Acquisition of particular resources and activities</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class='coststructure'>
+        <div class='questions'>
+          <ul>
+            <li>What are the most important costs inherent in our business model?</li>
+            <li>Which Key Resources are most expensive?</li>
+            <li>Which Key Activities are most expensive?</li>
+          </ul>
+        </div>
+        <div class='extra'>
+          <h2>Is your business more:</h2>
+          <ul>
+            <li>Cost Driven (leanest cost structure, low price value proposition, maximum automation, extensive outsourcing)</li>
+            <li>Value Driven (focused on value creation, premium value proposition)</li>
+          </ul>
+          <h2>Sample Characteristics:</h2>
+          <ul>
+            <li>Fixed Costs (salaries, rents, utilities)</li>
+            <li>Variable costs</li>
+            <li>Economies of Scale</li>
+            <li>Economies of scope</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class='revenuestreams'>
+        <div class='questions'>
+          <ul>
+            <li>For what value are our customers really willing to pay?</li>
+            <li>For what do they currently pay?</li>
+            <li>How are they currently paying?</li>
+            <li>How would they prefer to pay?</li>
+            <li>How much does each Revenue Stream contribute to overall revenues?</li>
+          </ul>
+        </div>
+        <div class='extra'>
+          <h2>Types:</h2>
+          <ul>
+            <li>Asset sale</li>
+            <li>Usage fee</li>
+            <li>Subscription fees</li>
+            <li>Lending / Renting / Leasing</li>
+            <li>Licensing</li>
+            <li>Brokerage fees</li>
+            <li>Advertising</li>
+          </ul>
+          <h2>Fixed Pricing:</h2>
+          <ul>
+            <li>List Price</li>
+            <li>Product feature dependent</li>
+            <li>Customer segment dependent</li>
+            <li>Volume dependent</li>
+          </ul>
+          <h2>Dynamic Pricing:</h2>
+          <ul>
+            <li>Negotiation (bargaining)</li>
+            <li>Yield Management</li>
+            <li>Real-time Market</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class='textinput popupcontent'>
+      <header></header>
+      <textarea></textarea>
+      <div class='tips'></div>
+      <footer>
+        <a href='#board' class='button update'>Update</a>
+        <a href='#board' class='button close'>Close</a>
+      </footer>
+    </div>
+
+    <div class='section-li'>
+      <ul>
+        <li></li>
+      </ul>
+    </div>
+
+    <div class='editdetails popupcontent'>
+      <header>Edit Business Model Canvas</header>
+      <label class='labeldesignedfor'>Designed for</label>
+      <textarea class='designedfor'></textarea>
+      <label class='labeldesignedby'>Designed by</label>
+      <input type='text' class='designedby'></input>
+      <label class='labeldatecreated'>On</label>
+      <input type='date' class='datecreated'></input>
+      <label class='labeliteration'>Iteration</label>
+      <input type='text' class='iteration'></input>
+      <footer>
+              <a href='#board' class='button update'>Update</a>
+              <a href='#board' class='button close'>Close</a>
+      </footer>
+    </div>
+  </div>
+
+</body>
+
+<script>
+//$('table.canvas td').removeClass('showtips');
+
+var app = {};
+
+app.show_editdetails = function () {
+  var editdetails = $('.templates .editdetails').clone();
+
+  var details = $('.container1 .details')
+  editdetails.find('.designedfor').val(details.find('.designedfor').text());
+  editdetails.find('.designedby').val(details.find('.designedby').text());
+  editdetails.find('.iteration').val(details.find('.iteration').text());
+  editdetails.find('.datecreated').val(moment(details.find('.datecreated').text()).format("YYYY-MM-DD"));
+
+  editdetails.find('.update').on('click', function(e) {
+    details.find('.designedfor').text(editdetails.find('.designedfor').val());
+    details.find('.designedby').text(editdetails.find('.designedby').val());
+    details.find('.iteration').text(editdetails.find('.iteration').val());
+    details.find('.datecreated').text(moment(editdetails.find('.datecreated').val()).format("DD MMM YYYY"));
+  });
+
+  $('.popup').empty();
+  $('.popup').append(editdetails);
+  $('.popup').removeClass('hide');
+  editdetails.find('textarea.designedfor').focus();
+};
+
+app.show_section = function (name) {
+  console.log(name);
+  var textinput = $('.templates .textinput').clone();
+
+  var text = "";
+  _.each($('.container1 .canvas .' + name + ' li'), function(li) {
+    text = text + $(li).text() + "\n";
+  });
+
+  textinput.find('header').text($('.container1 .canvas .' + name + ' h2').text());
+  textinput.find('.tips').append( $('.templates .tips .' + name).clone() );
+  textinput.find('textarea').val(text);
+  textinput.find('.close').on('click', function () {
+    window.location.hash = 'board';
+  });
+
+  textinput.find('.update').on('click', function () {
+    var ul, li;
+    window.location.hash = 'board';
+    ul = $('.section-li ul').clone();
+    li = ul.find('li').remove();
+    _.each(textinput.find('textarea').val().split("\n"), function(str) {
+      if ( str.trim() !== "" ) {
+        var _li = li.clone();
+        _li.text(str);
+        ul.append(_li);
+      }
+    });
+
+    $('.container1 .canvas .' + name + ' ul').remove();
+    $('.container1 .canvas .' + name).append(ul);
+  });
+
+  $('.popup').empty();
+  $('.popup').append(textinput);
+  $('.popup').removeClass('hide');
+  textinput.find('textarea').focus();
+};
+
+app.show_keypartners = function () {
+  app.show_section('keypartners');
+};
+
+app.sections = ['keypartners', 'keyactivities', 'keyresources',
+                'valuepropositions',
+                'customerrelationships', 'customersegments', 'channels',
+                'coststructure', 'revenuestreams'];
+
+app.show_board = function (id) {
+  console.log( 'app.show_board.1');
+  var board = $('.templates .board').clone();
+
+  board.find('.details').on('click', function(e) {
+    window.location.hash = 'editdetails';
+  });
+
+  _.each(app.sections, function(name) {
+    board.find('.' + name).on('click', function (e) {
+      window.location.hash = 'section+' + name;
+    });
+  });
+
+  $('.container1').empty();
+  $('.container1').append(board);
+};
+
+app.show_view = function (hash) {
+    var routes, hashParts, viewFn;
+
+    $('.popup').addClass('hide');
+
+    if (hash === "") {
+        window.location.hash = "#board";
+        return;
+    }
+
+    routes = {
+      '#keypartners': app.show_keypartners,
+      '#editdetails': app.show_editdetails,
+      '#section': app.show_section
+    };
+
+    hashParts = hash.split('+');
+    hashParts[1] = hashParts.slice(1).join('+');
+    viewFn = routes[hashParts[0]];
+    console.log("viewFn: ", hashParts[0], hashParts[1]);
+    if (viewFn) {
+        viewFn(hashParts[1]);
+    }
+};
+
+app.init = function () {
+  app.show_board();
+}
+
+app.apponready = function () {
+  app.init();
+  window.onhashchange = function () {
+    app.show_view(window.location.hash);
+  };
+  app.show_view(window.location.hash);
+};
+
+$(window).ready(app.apponready);
+$(document).keyup(function (e) {
+    if (e.keyCode === 27) { // escape key maps to keycode `27`
+        window.location.hash = 'board';
+    }
+});
+
+</script>
+
+</html>

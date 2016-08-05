@@ -1,0 +1,14 @@
+{
+  "designedfor": "Example",
+  "designedby": "Guy Irvine",
+  "datecreated": "Jun 1, 2015",
+  "iteration": 1,
+  "productsandservices": ["Product 1", "Service 1"],
+  "gaincreators": ["Gain Creator"],
+  "painrelievers": ["Pain Reliever"],
+  "customerjobs":
+    ["Customer Job 1", "Customer Job 2"],
+  "gains":
+    ["Gains"],
+  "pains": ["Pains"]
+}

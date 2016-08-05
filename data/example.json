@@ -1,0 +1,17 @@
+{
+  "designedfor": "Example",
+  "designedby": "Guy Irvine",
+  "datecreated": "Jun 1, 2015",
+  "iteration": 1,
+  "keyresources": ["Resource 1", "Resource 2"],
+  "keypartners": ["None"],
+  "keyactivities": ["Software Development"],
+  "valuepropositions":
+    ["Value Proposition 1"],
+  "customerrelationships":
+    ["Customer Relationship 1"],
+  "customersegments": ["Customer Segment"],
+  "channels": ["Channel"],
+  "coststructure": ["Cost Structure"],
+  "revenuestreams": ["Revenue Streams"]
+}
